@@ -1,0 +1,18 @@
+{
+    "name": "somecode/openapi-builder",
+    "description": "A package for convenient building and generation of Open API documentation",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Somecode\\OpenApi\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Mikhail Protasevich",
+            "email": "m1nyasha@yandex.ru"
+        }
+    ],
+    "require": {}
+}
