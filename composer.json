@@ -14,5 +14,10 @@
             "email": "m1nyasha@yandex.ru"
         }
     ],
-    "require": {}
+    "require": {
+      "php": "^8.1",
+        "laravel/pint": "^1.16",
+        "symfony/var-dumper": "^7.1",
+        "doctrine/collections": "^2.2"
+    }
 }

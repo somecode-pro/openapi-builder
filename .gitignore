@@ -1,2 +1,5 @@
 .idea
 vendor
+openapi.json
+host.php
+run.php
