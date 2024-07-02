@@ -31,6 +31,11 @@ abstract class Parameter
         $this->examples = new ArrayCollection();
     }
 
+    public static function create(): static
+    {
+        return new static();
+    }
+
     public function getName(): string
     {
         return $this->name;
@@ -166,6 +171,24 @@ abstract class Parameter
         $this->explode = true;
 
         return $this;
+    }
+
+    public function toArray(): array
+    {
+        // TODO: implement other properties
+
+        return [
+            'in' => $this->type()->value,
+            'name' => $this->name,
+            'description' => $this->description,
+            'required' => $this->required,
+            'deprecated' => $this->deprecated,
+            // 'schema' => $this->schema,
+            'example' => $this->example,
+            // 'examples' => $this->examples->toArray(),
+            // 'style' => $this->style,
+            // 'explode' => $this->explode,
+        ];
     }
 
     abstract public function type(): ParameterType;

@@ -2,6 +2,8 @@
 
 namespace Somecode\OpenApi\Entities\Methods;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Somecode\OpenApi\Entities\Parameters\Parameter;
 use Somecode\OpenApi\Enums\RequestMethod;
 
 abstract class Method
@@ -14,10 +16,13 @@ abstract class Method
 
     private string $operationId;
 
+    private ArrayCollection $parameters;
+
     public function __construct()
     {
         // TODO: mb need use other method for generate operationId
         $this->operationId = uniqid();
+        $this->parameters = new ArrayCollection();
     }
 
     public static function create(): static
@@ -64,6 +69,31 @@ abstract class Method
     public function getOperationId(): string
     {
         return $this->operationId;
+    }
+
+    public function addParameter(Parameter $parameter): Method
+    {
+        $this->parameters->add($parameter);
+
+        return $this;
+    }
+
+    public function getParameters(): ArrayCollection
+    {
+        return $this->parameters;
+    }
+
+    public function toArray()
+    {
+        return [
+            'tags' => $this->tags,
+            'summary' => $this->summary,
+            'description' => $this->description,
+            'operationId' => $this->operationId,
+            'parameters' => $this->parameters->map(
+                fn (Parameter $parameter) => $parameter->toArray()
+            )->toArray(),
+        ];
     }
 
     abstract public function method(): RequestMethod;

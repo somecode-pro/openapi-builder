@@ -3,6 +3,7 @@
 namespace Somecode\OpenApi\Services;
 
 use Somecode\OpenApi\Builder;
+use Somecode\OpenApi\Entities\Path;
 
 class JsonSerializer
 {
@@ -19,7 +20,19 @@ class JsonSerializer
                 'version' => $this->builder->info()->getVersion(),
                 'description' => $this->builder->info()->getDescription(),
             ],
-            'paths' => [],
-        ], JSON_PRETTY_PRINT);
+            'paths' => $this->paths(),
+        ], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+    }
+
+    private function paths(): array
+    {
+        $paths = [];
+
+        /** @var Path $path */
+        foreach ($this->builder->paths() as $path) {
+            $paths[$path->uri()] = $path->toArray();
+        }
+
+        return $paths;
     }
 }
