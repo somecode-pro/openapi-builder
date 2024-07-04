@@ -176,18 +176,26 @@ abstract class Parameter
     {
         // TODO: implement other properties
 
-        return array_merge([
+        $data = [
             'in' => $this->type()->value,
             'name' => $this->name,
             'description' => $this->description,
             'required' => $this->required,
             'deprecated' => $this->deprecated,
             // 'schema' => $this->schema,
-            'example' => $this->example,
-            'examples' => $this->getExamplesAsArray(),
             'style' => $this->style ?? $this->defaultStyle(),
             'explode' => $this->explode,
-        ], $this->specificData());
+        ];
+
+        if (isset($this->example)) {
+            $data['example'] = $this->example;
+        }
+
+        if (count($this->examples) > 0) {
+            $data['examples'] = $this->getExamplesAsArray();
+        }
+
+        return array_merge($data, $this->specificData());
     }
 
     protected function setStyle(string $style): static
