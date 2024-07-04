@@ -141,9 +141,22 @@ abstract class Parameter
         return $this->examples;
     }
 
-    public function addExample($example): Parameter
+    public function addExample(ParameterExample $example): Parameter
     {
         $this->examples->add($example);
+
+        return $this;
+    }
+
+    /**
+     * @param  array<ParameterExample>  $examples
+     * @return $this
+     */
+    public function addExamples(array $examples): Parameter
+    {
+        foreach ($examples as $example) {
+            $this->addExample($example);
+        }
 
         return $this;
     }

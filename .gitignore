@@ -3,3 +3,4 @@ vendor
 openapi.json
 host.php
 run.php
+example.php
