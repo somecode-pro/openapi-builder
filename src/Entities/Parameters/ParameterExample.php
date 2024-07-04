@@ -10,6 +10,11 @@ class ParameterExample
 
     private mixed $value;
 
+    public static function create(): static
+    {
+        return new static();
+    }
+
     public function getName(): string
     {
         return $this->name;
@@ -44,5 +49,13 @@ class ParameterExample
         $this->value = $value;
 
         return $this;
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'summary' => $this->summary,
+            'value' => $this->value,
+        ];
     }
 }

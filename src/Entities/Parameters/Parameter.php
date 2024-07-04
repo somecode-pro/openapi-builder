@@ -20,16 +20,23 @@ abstract class Parameter
 
     private mixed $example;
 
+    /** @var ArrayCollection<ParameterExample[]> */
     private ArrayCollection $examples;
 
     private string $style;
 
-    private bool $explode;
+    private bool $explode = false;
 
     public function __construct()
     {
         $this->examples = new ArrayCollection();
     }
+
+    abstract public function type(): ParameterType;
+
+    abstract protected function specificData(): array;
+
+    abstract protected function defaultStyle(): string;
 
     public static function create(): static
     {
@@ -134,7 +141,6 @@ abstract class Parameter
         return $this->examples;
     }
 
-    // TODO: implement addExample method
     public function addExample($example): Parameter
     {
         $this->examples->add($example);
@@ -145,13 +151,6 @@ abstract class Parameter
     public function getStyle(): string
     {
         return $this->style;
-    }
-
-    public function style(string $style): Parameter
-    {
-        $this->style = $style;
-
-        return $this;
     }
 
     public function isExplode(): bool
@@ -177,7 +176,7 @@ abstract class Parameter
     {
         // TODO: implement other properties
 
-        return [
+        return array_merge([
             'in' => $this->type()->value,
             'name' => $this->name,
             'description' => $this->description,
@@ -185,11 +184,28 @@ abstract class Parameter
             'deprecated' => $this->deprecated,
             // 'schema' => $this->schema,
             'example' => $this->example,
-            // 'examples' => $this->examples->toArray(),
-            // 'style' => $this->style,
-            // 'explode' => $this->explode,
-        ];
+            'examples' => $this->getExamplesAsArray(),
+            'style' => $this->style ?? $this->defaultStyle(),
+            'explode' => $this->explode,
+        ], $this->specificData());
     }
 
-    abstract public function type(): ParameterType;
+    protected function setStyle(string $style): static
+    {
+        $this->style = $style;
+
+        return $this;
+    }
+
+    private function getExamplesAsArray(): array
+    {
+        $examples = [];
+
+        /** @var ParameterExample $example */
+        foreach ($this->examples as $example) {
+            $examples[$example->getName()] = $example->toArray();
+        }
+
+        return $examples;
+    }
 }

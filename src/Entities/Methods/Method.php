@@ -83,7 +83,7 @@ abstract class Method
         return $this->parameters;
     }
 
-    public function toArray()
+    public function toArray(): array
     {
         return [
             'tags' => $this->tags,
