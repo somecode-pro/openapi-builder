@@ -1,10 +1,10 @@
 <?php
 
-namespace Somecode\OpenApi\Entities\Parameters;
+namespace Somecode\OpenApi\Entities\Parameter;
 
-use Somecode\OpenApi\Entities\Parameters\Styles\LabelStyle;
-use Somecode\OpenApi\Entities\Parameters\Styles\MatrixStyle;
-use Somecode\OpenApi\Entities\Parameters\Styles\SimpleStyle;
+use Somecode\OpenApi\Entities\Parameter\Styles\LabelStyle;
+use Somecode\OpenApi\Entities\Parameter\Styles\MatrixStyle;
+use Somecode\OpenApi\Entities\Parameter\Styles\SimpleStyle;
 use Somecode\OpenApi\Enums\ParameterType;
 
 class PathParameter extends Parameter

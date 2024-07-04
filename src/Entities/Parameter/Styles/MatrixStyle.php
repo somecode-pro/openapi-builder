@@ -1,6 +1,6 @@
 <?php
 
-namespace Somecode\OpenApi\Entities\Parameters\Styles;
+namespace Somecode\OpenApi\Entities\Parameter\Styles;
 
 trait MatrixStyle
 {

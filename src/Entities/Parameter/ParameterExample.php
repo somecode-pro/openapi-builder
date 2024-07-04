@@ -1,6 +1,6 @@
 <?php
 
-namespace Somecode\OpenApi\Entities\Parameters;
+namespace Somecode\OpenApi\Entities\Parameter;
 
 class ParameterExample
 {

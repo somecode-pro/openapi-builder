@@ -1,11 +1,11 @@
 <?php
 
-namespace Somecode\OpenApi\Entities\Parameters;
+namespace Somecode\OpenApi\Entities\Parameter;
 
-use Somecode\OpenApi\Entities\Parameters\Styles\DeepObjectStyle;
-use Somecode\OpenApi\Entities\Parameters\Styles\FormStyle;
-use Somecode\OpenApi\Entities\Parameters\Styles\PipeDelimitedStyle;
-use Somecode\OpenApi\Entities\Parameters\Styles\SpaceDelimitedStyle;
+use Somecode\OpenApi\Entities\Parameter\Styles\DeepObjectStyle;
+use Somecode\OpenApi\Entities\Parameter\Styles\FormStyle;
+use Somecode\OpenApi\Entities\Parameter\Styles\PipeDelimitedStyle;
+use Somecode\OpenApi\Entities\Parameter\Styles\SpaceDelimitedStyle;
 use Somecode\OpenApi\Enums\ParameterType;
 
 class QueryParameter extends Parameter

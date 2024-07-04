@@ -1,13 +1,13 @@
 <?php
 
-namespace Somecode\OpenApi\Entities\Methods;
+namespace Somecode\OpenApi\Entities\Method;
 
 use Somecode\OpenApi\Enums\RequestMethod;
 
-class Delete extends Method
+class Get extends Method
 {
     public function method(): RequestMethod
     {
-        return RequestMethod::DELETE;
+        return RequestMethod::GET;
     }
 }

@@ -1,13 +1,13 @@
 <?php
 
-namespace Somecode\OpenApi\Entities\Methods;
+namespace Somecode\OpenApi\Entities\Method;
 
 use Somecode\OpenApi\Enums\RequestMethod;
 
-class Get extends Method
+class Patch extends Method
 {
     public function method(): RequestMethod
     {
-        return RequestMethod::GET;
+        return RequestMethod::PATCH;
     }
 }

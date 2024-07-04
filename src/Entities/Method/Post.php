@@ -1,13 +1,13 @@
 <?php
 
-namespace Somecode\OpenApi\Entities\Methods;
+namespace Somecode\OpenApi\Entities\Method;
 
 use Somecode\OpenApi\Enums\RequestMethod;
 
-class Put extends Method
+class Post extends Method
 {
     public function method(): RequestMethod
     {
-        return RequestMethod::PUT;
+        return RequestMethod::POST;
     }
 }

@@ -3,7 +3,7 @@
 namespace Somecode\OpenApi\Entities;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Somecode\OpenApi\Entities\Methods\Method;
+use Somecode\OpenApi\Entities\Method\Method;
 
 class Path
 {
