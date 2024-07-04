@@ -38,4 +38,16 @@ class Path
 
         return $this;
     }
+
+    public function toArray(): array
+    {
+        $data = [];
+
+        /** @var Method $method */
+        foreach ($this->methods as $method) {
+            $data[strtolower($method->method()->value)] = $method->toArray();
+        }
+
+        return $data;
+    }
 }
