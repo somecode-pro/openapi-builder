@@ -12,6 +12,8 @@ abstract class Schema
 
     private array $enum;
 
+    private mixed $default;
+
     abstract protected function type(): Type;
 
     abstract protected function specificData(): array;
@@ -67,7 +69,23 @@ abstract class Schema
             $data['enum'] = $this->enum;
         }
 
+        if (isset($this->default)) {
+            $data['default'] = $this->default;
+        }
+
         return array_merge($data, $this->specificData());
+    }
+
+    public function getDefault(): mixed
+    {
+        return $this->default;
+    }
+
+    public function default(mixed $default): Schema
+    {
+        $this->default = $default;
+
+        return $this;
     }
 
     protected function setFormat(string $format): Schema
