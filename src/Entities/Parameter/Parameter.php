@@ -3,6 +3,7 @@
 namespace Somecode\OpenApi\Entities\Parameter;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Somecode\OpenApi\Entities\Schema\Schema;
 use Somecode\OpenApi\Enums\ParameterType;
 
 abstract class Parameter
@@ -15,8 +16,7 @@ abstract class Parameter
 
     private bool $deprecated = false;
 
-    // TODO: implement after Schema class is implemented
-    private $schema;
+    private Schema $schema;
 
     private mixed $example;
 
@@ -105,19 +105,12 @@ abstract class Parameter
         return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getSchema()
+    public function getSchema(): Schema
     {
         return $this->schema;
     }
 
-    /**
-     * @param  mixed  $schema
-     * @return Parameter
-     */
-    public function setSchema($schema)
+    public function schema(Schema $schema): static
     {
         $this->schema = $schema;
 
@@ -187,15 +180,13 @@ abstract class Parameter
 
     public function toArray(): array
     {
-        // TODO: implement other properties
-
         $data = [
             'in' => $this->type()->value,
             'name' => $this->name,
             'description' => $this->description,
             'required' => $this->required,
             'deprecated' => $this->deprecated,
-            // 'schema' => $this->schema,
+            'schema' => $this->schema->toArray(),
             'style' => $this->style ?? $this->defaultStyle(),
             'explode' => $this->explode,
         ];
