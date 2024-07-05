@@ -8,7 +8,7 @@ use Somecode\OpenApi\Entities\Method\Method;
 use Somecode\OpenApi\Entities\Method\Patch;
 use Somecode\OpenApi\Entities\Method\Post;
 use Somecode\OpenApi\Entities\Method\Put;
-use Somecode\OpenApi\Enums\RequestMethod;
+use Somecode\OpenApi\Entities\Method\RequestMethod;
 
 class PathMethodFactory
 {

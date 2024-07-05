@@ -1,8 +1,8 @@
 <?php
 
-namespace Somecode\OpenApi\Enums;
+namespace Somecode\OpenApi\Entities\Parameter;
 
-enum ParameterType: string
+enum Type: string
 {
     case Query = 'query';
     case Path = 'path';

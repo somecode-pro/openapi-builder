@@ -1,6 +1,6 @@
 <?php
 
-namespace Somecode\OpenApi\Enums;
+namespace Somecode\OpenApi\Entities\Method;
 
 enum RequestMethod: string
 {

@@ -4,7 +4,6 @@ namespace Somecode\OpenApi\Entities\Method;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Somecode\OpenApi\Entities\Parameter\Parameter;
-use Somecode\OpenApi\Enums\RequestMethod;
 
 abstract class Method
 {

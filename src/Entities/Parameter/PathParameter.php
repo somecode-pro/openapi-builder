@@ -5,15 +5,14 @@ namespace Somecode\OpenApi\Entities\Parameter;
 use Somecode\OpenApi\Entities\Parameter\Styles\LabelStyle;
 use Somecode\OpenApi\Entities\Parameter\Styles\MatrixStyle;
 use Somecode\OpenApi\Entities\Parameter\Styles\SimpleStyle;
-use Somecode\OpenApi\Enums\ParameterType;
 
 class PathParameter extends Parameter
 {
     use LabelStyle, MatrixStyle, SimpleStyle;
 
-    public function type(): ParameterType
+    public function type(): Type
     {
-        return ParameterType::Path;
+        return Type::Path;
     }
 
     protected function specificData(): array

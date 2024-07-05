@@ -4,7 +4,6 @@ namespace Somecode\OpenApi\Entities\Parameter;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Somecode\OpenApi\Entities\Schema\Schema;
-use Somecode\OpenApi\Enums\ParameterType;
 
 abstract class Parameter
 {
@@ -32,7 +31,7 @@ abstract class Parameter
         $this->examples = new ArrayCollection();
     }
 
-    abstract public function type(): ParameterType;
+    abstract public function type(): Type;
 
     abstract protected function specificData(): array;
 

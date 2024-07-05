@@ -6,7 +6,6 @@ use Somecode\OpenApi\Entities\Parameter\Styles\DeepObjectStyle;
 use Somecode\OpenApi\Entities\Parameter\Styles\FormStyle;
 use Somecode\OpenApi\Entities\Parameter\Styles\PipeDelimitedStyle;
 use Somecode\OpenApi\Entities\Parameter\Styles\SpaceDelimitedStyle;
-use Somecode\OpenApi\Enums\ParameterType;
 
 class QueryParameter extends Parameter
 {
@@ -16,9 +15,9 @@ class QueryParameter extends Parameter
 
     private bool $allowReserved = false;
 
-    public function type(): ParameterType
+    public function type(): Type
     {
-        return ParameterType::Query;
+        return Type::Query;
     }
 
     protected function specificData(): array
