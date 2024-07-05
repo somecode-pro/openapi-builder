@@ -77,6 +77,15 @@ abstract class Method
         return $this;
     }
 
+    public function addParameters(array $parameters): Method
+    {
+        foreach ($parameters as $parameter) {
+            $this->addParameter($parameter);
+        }
+
+        return $this;
+    }
+
     public function getParameters(): ArrayCollection
     {
         return $this->parameters;

@@ -2,17 +2,23 @@
 
 namespace Somecode\OpenApi\Entities\Schema;
 
+use Somecode\OpenApi\Entities\Schema\Formats\Format;
+
 abstract class Schema
 {
     private string $description;
 
     private mixed $example;
 
-    private string $format;
+    private Format $format;
 
     private array $enum;
 
     private mixed $default;
+
+    private int|float $minimum;
+
+    private int|float $maximum;
 
     abstract protected function type(): Type;
 
@@ -62,7 +68,7 @@ abstract class Schema
         }
 
         if (isset($this->format)) {
-            $data['format'] = $this->format;
+            $data['format'] = $this->format->value;
         }
 
         if (isset($this->enum)) {
@@ -71,6 +77,14 @@ abstract class Schema
 
         if (isset($this->default)) {
             $data['default'] = $this->default;
+        }
+
+        if (isset($this->minimum)) {
+            $data['minimum'] = $this->minimum;
+        }
+
+        if (isset($this->maximum)) {
+            $data['maximum'] = $this->maximum;
         }
 
         return array_merge($data, $this->specificData());
@@ -88,7 +102,21 @@ abstract class Schema
         return $this;
     }
 
-    protected function setFormat(string $format): Schema
+    protected function setMinimum(float|int $minimum): Schema
+    {
+        $this->minimum = $minimum;
+
+        return $this;
+    }
+
+    protected function setMaximum(float|int $maximum): Schema
+    {
+        $this->maximum = $maximum;
+
+        return $this;
+    }
+
+    protected function setFormat(Format $format): Schema
     {
         $this->format = $format;
 
