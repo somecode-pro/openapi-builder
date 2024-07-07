@@ -82,16 +82,9 @@ abstract class Parameter
         return $this->required;
     }
 
-    public function setRequired(bool $required): Parameter
+    public function required(bool $required = true): Parameter
     {
         $this->required = $required;
-
-        return $this;
-    }
-
-    public function asRequired(): static
-    {
-        $this->required = true;
 
         return $this;
     }
@@ -101,16 +94,9 @@ abstract class Parameter
         return $this->deprecated;
     }
 
-    public function setDeprecated(bool $deprecated): Parameter
+    public function deprecated(bool $deprecated = true): Parameter
     {
         $this->deprecated = $deprecated;
-
-        return $this;
-    }
-
-    public function asDeprecated(): Parameter
-    {
-        $this->deprecated = true;
 
         return $this;
     }
@@ -174,16 +160,9 @@ abstract class Parameter
         return $this->explode;
     }
 
-    public function setExplode(bool $explode): Parameter
+    public function explode(bool $explode = true): Parameter
     {
         $this->explode = $explode;
-
-        return $this;
-    }
-
-    public function asExplode(): Parameter
-    {
-        $this->explode = true;
 
         return $this;
     }

@@ -39,6 +39,15 @@ class Path
         return $this;
     }
 
+    public function addMethods(array $methods): Path
+    {
+        foreach ($methods as $method) {
+            $this->addMethod($method);
+        }
+
+        return $this;
+    }
+
     public function toArray(): array
     {
         $data = [];
