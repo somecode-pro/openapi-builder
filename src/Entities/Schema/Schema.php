@@ -2,10 +2,15 @@
 
 namespace Somecode\OpenApi\Entities\Schema;
 
+use Somecode\OpenApi\Entities\Schema\Addons\HasSchemaRef;
 use Somecode\OpenApi\Entities\Schema\Formats\Format;
 
 abstract class Schema
 {
+    use HasSchemaRef;
+
+    private string $name;
+
     private string $description;
 
     private mixed $example;
@@ -20,13 +25,38 @@ abstract class Schema
 
     private int|float $maximum;
 
+    private bool $isRequired = false;
+
     abstract protected function type(): Type;
 
     abstract protected function specificData(): array;
 
-    public static function create(): static
+    public static function create(?string $name = null): static
     {
-        return new static();
+        $instance = new static();
+
+        if (! is_null($name)) {
+            $instance->name($name);
+        }
+
+        return $instance;
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function name(string $name): Schema
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function isEmptyName(): bool
+    {
+        return empty($this->name);
     }
 
     public function getDescription(): string
@@ -55,6 +85,10 @@ abstract class Schema
 
     public function toArray(): array
     {
+        if (! $this->isEmptyRef()) {
+            return ['$ref' => $this->getRef()];
+        }
+
         $data = [
             'type' => $this->type()->value,
         ];
@@ -98,6 +132,18 @@ abstract class Schema
     public function default(mixed $default): Schema
     {
         $this->default = $default;
+
+        return $this;
+    }
+
+    public function isRequired(): bool
+    {
+        return $this->isRequired;
+    }
+
+    public function markAsRequired(): Schema
+    {
+        $this->isRequired = true;
 
         return $this;
     }

@@ -37,9 +37,15 @@ abstract class Parameter
 
     abstract protected function defaultStyle(): string;
 
-    public static function create(): static
+    public static function create(?string $name = null): static
     {
-        return new static();
+        $instance = new static();
+
+        if (! is_null($name)) {
+            $instance->name($name);
+        }
+
+        return $instance;
     }
 
     public function getName(): string
@@ -52,6 +58,11 @@ abstract class Parameter
         $this->name = $name;
 
         return $this;
+    }
+
+    public function isEmptyName(): bool
+    {
+        return empty($this->name);
     }
 
     public function getDescription(): ?string
@@ -181,14 +192,23 @@ abstract class Parameter
     {
         $data = [
             'in' => $this->type()->value,
-            'name' => $this->name,
-            'description' => $this->description,
             'required' => $this->required,
             'deprecated' => $this->deprecated,
-            'schema' => $this->schema->toArray(),
             'style' => $this->style ?? $this->defaultStyle(),
             'explode' => $this->explode,
         ];
+
+        if (isset($this->name)) {
+            $data['name'] = $this->name;
+        }
+
+        if (isset($this->description)) {
+            $data['description'] = $this->description;
+        }
+
+        if (isset($this->schema)) {
+            $data['schema'] = $this->schema->toArray();
+        }
 
         if (isset($this->example)) {
             $data['example'] = $this->example;

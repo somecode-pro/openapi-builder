@@ -17,12 +17,17 @@ abstract class Method
 
     private ArrayCollection $parameters;
 
+    private ArrayCollection $parameterRefs;
+
     public function __construct()
     {
         // TODO: mb need use other method for generate operationId
         $this->operationId = uniqid();
         $this->parameters = new ArrayCollection();
+        $this->parameterRefs = new ArrayCollection();
     }
+
+    abstract public function method(): RequestMethod;
 
     public static function create(): static
     {
@@ -86,9 +91,30 @@ abstract class Method
         return $this;
     }
 
+    public function addParameterRef(string $ref): Method
+    {
+        $this->parameterRefs->add("#/components/parameters/$ref");
+
+        return $this;
+    }
+
+    public function addParameterRefs(array $refs): Method
+    {
+        foreach ($refs as $ref) {
+            $this->addParameterRef($ref);
+        }
+
+        return $this;
+    }
+
     public function getParameters(): ArrayCollection
     {
         return $this->parameters;
+    }
+
+    public function getParameterRefs(): ArrayCollection
+    {
+        return $this->parameterRefs;
     }
 
     public function toArray(): array
@@ -98,11 +124,22 @@ abstract class Method
             'summary' => $this->summary,
             'description' => $this->description,
             'operationId' => $this->operationId,
-            'parameters' => $this->parameters->map(
-                fn (Parameter $parameter) => $parameter->toArray()
-            )->toArray(),
+            'parameters' => $this->getParametersAsArray(),
         ];
     }
 
-    abstract public function method(): RequestMethod;
+    private function getParametersAsArray(): array
+    {
+        $parameters = $this->parameters->map(
+            fn (Parameter $parameter) => $parameter->toArray()
+        )->toArray();
+
+        $parameterRefs = [];
+
+        foreach ($this->parameterRefs as $parameterRef) {
+            $parameterRefs[] = ['$ref' => $parameterRef];
+        }
+
+        return array_merge($parameters, $parameterRefs);
+    }
 }

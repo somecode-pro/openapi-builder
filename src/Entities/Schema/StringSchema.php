@@ -28,15 +28,15 @@ class StringSchema extends Schema
     {
         $data = [];
 
-        if ($this->minLength) {
+        if (isset($this->minLength)) {
             $data['minLength'] = $this->minLength;
         }
 
-        if ($this->maxLength) {
+        if (isset($this->maxLength)) {
             $data['maxLength'] = $this->maxLength;
         }
 
-        if ($this->pattern) {
+        if (isset($this->pattern)) {
             $data['pattern'] = $this->pattern;
         }
 
