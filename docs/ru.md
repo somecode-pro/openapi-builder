@@ -341,7 +341,7 @@ $builder->addPaths([
 ]);
 ```
 
-### Описание доступных методов
+#### Описание доступных методов
 
 Согласно спецификации OpenAPI, параметры могут включать в себя различные свойства, такие как:
 
@@ -366,3 +366,109 @@ $builder->addPaths([
 - `useLabelStyle()`
 - `useMatrixStyle()`
 - `useSimpleStyle()`
+
+### Схемы
+
+Схемы используются для описания структуры данных. Существует несколько типов схем `string`, `number`, `integer`, `boolean`, `array`, `object`.
+Под каждый из них есть свой класс:
+
+- `Somecode\OpenApi\Entities\Schema\StringSchema`
+- `Somecode\OpenApi\Entities\Schema\NumberSchema`
+- `Somecode\OpenApi\Entities\Schema\IntegerSchema`
+- `Somecode\OpenApi\Entities\Schema\BooleanSchema`
+- `Somecode\OpenApi\Entities\Schema\ArraySchema`
+- `Somecode\OpenApi\Entities\Schema\ObjectSchema`
+
+В зависимости от ситуации, вы можете использовать один из них.
+
+#### Использование схем в параметрах запроса
+
+```php
+use Somecode\OpenApi\Entities\Schema\NumberSchema;
+use Somecode\OpenApi\Entities\Schema\StringSchema;
+
+QueryParameter::create('pageNumberQuery')
+    ->description('Номер страницы')
+    ->required()
+    ->example(10)
+    ->schema(
+        NumberSchema::create()
+            ->minimum(1)
+            ->maximum(100)
+            ->default(1)
+    );
+
+QueryParameter::create('status')
+    ->schema(
+        StringSchema::create()
+            ->enum(['active', 'inactive'])
+    );
+```
+
+#### Глобальные схемы
+
+Любую именованную схему вы можете добавить в список компонентов спецификации, которые в дальнейшем можно будет переиспользовать.
+
+```php
+use Somecode\OpenApi\Entities\Schema\ObjectSchema;
+
+$productSchema = ObjectSchema::create(name: 'Product')
+    ->addProperties([
+        NumberSchema::create(name: 'id'),
+        NumberSchema::create(name: 'price'),
+        NumberSchema::create(name: 'quantity'),
+    ]);
+
+$builder->addSchema($productSchema);
+```
+
+#### Описание доступных методов
+
+- `name(string $name)`
+- `description(string $description)`
+- `example(mixed $example)`
+- `default(mixed $default)`
+- `markAsRequired()`
+
+Для `NumberSchema`:
+
+- `useDoubleFormat()`
+- `useFloatFormat()`
+- `enum(array|string $enum)`
+- `maximum(int|float $maximum)`
+- `minimum(int|float $minimum)`
+
+Для `StringSchema`:
+
+- `minLength(int $minLength)`
+- `maxLength(int $maxLength)`
+- `pattern(string $pattern)`
+- `useBinaryFormat()`
+- `useByteFormat()`
+- `useDateFormat()`
+- `useDateTimeFormat()`
+- `usePasswordFormat()`
+- `enum(array|string $enum)`
+
+Для `ObjectSchema`:
+
+- `addProperty(Schema $schema)`
+- `addProperties(array $schemas)`
+- `requiredFields(array $array)`
+- `minProperties(int $minProperties)`
+- `maxProperties(int $maxProperties)`
+
+Для `ArraySchema`:
+
+- `minItems(int $minItems)`
+- `maxItems(int $maxItems)`
+- `uniqueItems(bool $uniqueItems = true)`
+- `itemsSchema(Schema|string $schema)`
+
+Для `IntegerSchema`:
+
+- `enum(array|string $enum)`
+- `maximum(int|float $maximum)`
+- `minimum(int|float $minimum)`
+- `useInt32Format()`
+- `useInt64Format()`
