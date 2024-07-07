@@ -1,6 +1,6 @@
 <?php
 
-namespace Somecode\OpenApi\Entities\Request\Content;
+namespace Somecode\OpenApi\Entities\Content;
 
 enum ContentType: string
 {
