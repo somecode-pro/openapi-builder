@@ -88,6 +88,15 @@ class Builder
         return $this;
     }
 
+    public function addPaths(array $paths): Builder
+    {
+        foreach ($paths as $path) {
+            $this->addPath($path);
+        }
+
+        return $this;
+    }
+
     public function addServer(Server $server): static
     {
         $this->servers->add($server);
