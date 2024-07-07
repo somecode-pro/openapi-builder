@@ -1,13 +1,13 @@
 <?php
 
-namespace Somecode\OpenApi\Entities\Request\Content;
+namespace Somecode\OpenApi\Entities\Content;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Somecode\OpenApi\Entities\Schema\Schema;
+use Somecode\OpenApi\Entities\Schema\HasSchema;
 
 abstract class Content
 {
-    private Schema|string $schema;
+    use HasSchema;
 
     private ArrayCollection $examples;
 
@@ -24,13 +24,6 @@ abstract class Content
     public static function create(): static
     {
         return new static();
-    }
-
-    public function schema(string|Schema $schema): Content
-    {
-        $this->schema = $schema;
-
-        return $this;
     }
 
     public function addExample(ContentExample $example): Content
@@ -54,7 +47,7 @@ abstract class Content
         $data = [];
 
         if (isset($this->schema)) {
-            $data['schema'] = $this->getSchemaData();
+            $data['schema'] = $this->schemaToArray();
         }
 
         if (! $this->examples->isEmpty()) {
@@ -62,17 +55,6 @@ abstract class Content
         }
 
         return $data;
-    }
-
-    private function getSchemaData(): array
-    {
-        if ($this->schema instanceof Schema) {
-            return $this->schema->toArray();
-        }
-
-        return [
-            '$ref' => "#/components/schemas/$this->schema",
-        ];
     }
 
     private function getExamplesArray(): array

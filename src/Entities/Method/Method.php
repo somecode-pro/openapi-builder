@@ -5,6 +5,7 @@ namespace Somecode\OpenApi\Entities\Method;
 use Doctrine\Common\Collections\ArrayCollection;
 use Somecode\OpenApi\Entities\Parameter\Parameter;
 use Somecode\OpenApi\Entities\Request\RequestBody;
+use Somecode\OpenApi\Entities\Response\Response;
 
 abstract class Method
 {
@@ -22,12 +23,15 @@ abstract class Method
 
     private RequestBody $requestBody;
 
+    private ArrayCollection $responses;
+
     public function __construct()
     {
         // TODO: mb need use other method for generate operationId
         $this->operationId = uniqid();
         $this->parameters = new ArrayCollection();
         $this->parameterRefs = new ArrayCollection();
+        $this->responses = new ArrayCollection();
     }
 
     abstract public function method(): RequestMethod;
@@ -127,6 +131,22 @@ abstract class Method
         return $this;
     }
 
+    public function addResponse(Response $response): static
+    {
+        $this->responses->add($response);
+
+        return $this;
+    }
+
+    public function addResponses(array $responses): static
+    {
+        foreach ($responses as $response) {
+            $this->addResponse($response);
+        }
+
+        return $this;
+    }
+
     public function toArray(): array
     {
         $data = [
@@ -147,6 +167,10 @@ abstract class Method
             $data['requestBody'] = $this->requestBody->toArray();
         }
 
+        if (! $this->responses->isEmpty()) {
+            $data['responses'] = $this->getResponsesArray();
+        }
+
         return $data;
     }
 
@@ -163,5 +187,17 @@ abstract class Method
         }
 
         return array_merge($parameters, $parameterRefs);
+    }
+
+    private function getResponsesArray(): array
+    {
+        $responses = [];
+
+        /** @var Response $response */
+        foreach ($this->responses as $response) {
+            $responses[$response->getCode()] = $response->toArray();
+        }
+
+        return $responses;
     }
 }

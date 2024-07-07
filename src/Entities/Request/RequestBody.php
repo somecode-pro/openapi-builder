@@ -3,7 +3,7 @@
 namespace Somecode\OpenApi\Entities\Request;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Somecode\OpenApi\Entities\Request\Content\Content;
+use Somecode\OpenApi\Entities\Content\Content;
 
 class RequestBody
 {
