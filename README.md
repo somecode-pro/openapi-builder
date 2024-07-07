@@ -10,7 +10,7 @@ A package for convenient building and generation of Open API documentation.
 
 ```php
 use Somecode\OpenApi\Builder;
-use Somecode\OpenApi\Entities\Methods\Get;
+use Somecode\OpenApi\Entities\Method\Get;
 use Somecode\OpenApi\Entities\Path;
 
 $builder = new Builder(

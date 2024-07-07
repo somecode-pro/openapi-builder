@@ -2,13 +2,13 @@
 
 namespace Somecode\OpenApi\Services;
 
-use Somecode\OpenApi\Entities\Methods\Delete;
-use Somecode\OpenApi\Entities\Methods\Get;
-use Somecode\OpenApi\Entities\Methods\Method;
-use Somecode\OpenApi\Entities\Methods\Patch;
-use Somecode\OpenApi\Entities\Methods\Post;
-use Somecode\OpenApi\Entities\Methods\Put;
-use Somecode\OpenApi\Enums\RequestMethod;
+use Somecode\OpenApi\Entities\Method\Delete;
+use Somecode\OpenApi\Entities\Method\Get;
+use Somecode\OpenApi\Entities\Method\Method;
+use Somecode\OpenApi\Entities\Method\Patch;
+use Somecode\OpenApi\Entities\Method\Post;
+use Somecode\OpenApi\Entities\Method\Put;
+use Somecode\OpenApi\Entities\Method\RequestMethod;
 
 class PathMethodFactory
 {

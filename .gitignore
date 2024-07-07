@@ -4,3 +4,4 @@ openapi.json
 host.php
 run.php
 example.php
+serve.sh

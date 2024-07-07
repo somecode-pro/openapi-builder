@@ -21,6 +21,7 @@ class JsonSerializer
                 'description' => $this->builder->info()->getDescription(),
             ],
             'paths' => $this->paths(),
+            'components' => $this->builder->componentsToArray(),
         ], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
     }
 

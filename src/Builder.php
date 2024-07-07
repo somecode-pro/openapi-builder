@@ -3,18 +3,22 @@
 namespace Somecode\OpenApi;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Somecode\OpenApi\Entities\Components\Components;
 use Somecode\OpenApi\Entities\Info;
 use Somecode\OpenApi\Entities\Path;
 use Somecode\OpenApi\Services\JsonSerializer;
 
 class Builder
 {
+    use Components;
+
     private string $version = '3.0.0';
 
     private string $prefix = '';
 
     private Info $info;
 
+    /** @var ArrayCollection<array<Path>> */
     private ArrayCollection $paths;
 
     public function __construct(
@@ -24,6 +28,7 @@ class Builder
     ) {
         $this->info = new Info($title, $version, $description);
         $this->paths = new ArrayCollection();
+        $this->initComponents();
     }
 
     public function openApiVersion(): string
