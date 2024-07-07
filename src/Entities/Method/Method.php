@@ -6,9 +6,12 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Somecode\OpenApi\Entities\Parameter\Parameter;
 use Somecode\OpenApi\Entities\Request\RequestBody;
 use Somecode\OpenApi\Entities\Response\Response;
+use Somecode\OpenApi\Entities\Security\HasSecurity;
 
 abstract class Method
 {
+    use HasSecurity;
+
     private array $tags = [];
 
     private string $summary;
@@ -169,6 +172,10 @@ abstract class Method
 
         if (! $this->responses->isEmpty()) {
             $data['responses'] = $this->getResponsesArray();
+        }
+
+        if (! $this->getSecurity()->isEmpty()) {
+            $data['security'] = $this->securityToArray();
         }
 
         return $data;

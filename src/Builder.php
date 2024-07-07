@@ -6,12 +6,13 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Somecode\OpenApi\Entities\Components\Components;
 use Somecode\OpenApi\Entities\Info;
 use Somecode\OpenApi\Entities\Path;
+use Somecode\OpenApi\Entities\Security\HasSecurity;
 use Somecode\OpenApi\Entities\Server\Server;
 use Somecode\OpenApi\Services\JsonSerializer;
 
 class Builder
 {
-    use Components;
+    use Components, HasSecurity;
 
     private string $version = '3.0.0';
 
