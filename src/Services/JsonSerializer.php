@@ -14,13 +14,19 @@ class JsonSerializer
 
     public function serialize(): string
     {
-        return json_encode([
+        $data = [
             'openapi' => $this->builder->openApiVersion(),
             'info' => $this->builder->info()->toArray(),
             'servers' => $this->servers(),
             'paths' => $this->paths(),
             'components' => $this->builder->componentsToArray(),
-        ], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+        ];
+
+        if ($this->builder->hasSecurity()) {
+            $data['security'] = $this->builder->securityToArray();
+        }
+
+        return json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
     }
 
     private function paths(): array
