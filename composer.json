@@ -1,23 +1,24 @@
 {
-    "name": "somecode/openapi-builder",
-    "description": "A package for convenient building and generation of Open API documentation",
-    "type": "library",
-    "license": "MIT",
-    "autoload": {
-        "psr-4": {
-            "Somecode\\OpenApi\\": "src/"
-        }
-    },
-    "authors": [
-        {
-            "name": "Mikhail Protasevich",
-            "email": "m1nyasha@yandex.ru"
-        }
-    ],
-    "require": {
-      "php": "^8.1",
-        "laravel/pint": "^1.16",
-        "symfony/var-dumper": "^7.1",
-        "doctrine/collections": "^2.2"
+  "name": "somecode/openapi-builder",
+  "version": "1.0.0",
+  "description": "A package for convenient building and generation of Open API documentation",
+  "type": "library",
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "Somecode\\OpenApi\\": "src/"
     }
+  },
+  "authors": [
+    {
+      "name": "Mikhail Protasevich",
+      "email": "m1nyasha@yandex.ru"
+    }
+  ],
+  "require": {
+    "php": "^8.1",
+    "laravel/pint": "^1.16",
+    "symfony/var-dumper": "^7.1",
+    "doctrine/collections": "^2.2"
+  }
 }
