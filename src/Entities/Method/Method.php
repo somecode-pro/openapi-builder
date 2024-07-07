@@ -4,20 +4,23 @@ namespace Somecode\OpenApi\Entities\Method;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Somecode\OpenApi\Entities\Parameter\Parameter;
+use Somecode\OpenApi\Entities\Request\RequestBody;
 
 abstract class Method
 {
     private array $tags = [];
 
-    private ?string $summary = null;
+    private string $summary;
 
-    private ?string $description = null;
+    private string $description;
 
     private string $operationId;
 
     private ArrayCollection $parameters;
 
     private ArrayCollection $parameterRefs;
+
+    private RequestBody $requestBody;
 
     public function __construct()
     {
@@ -117,15 +120,34 @@ abstract class Method
         return $this->parameterRefs;
     }
 
+    public function requestBody(RequestBody $requestBody): Method
+    {
+        $this->requestBody = $requestBody;
+
+        return $this;
+    }
+
     public function toArray(): array
     {
-        return [
+        $data = [
             'tags' => $this->tags,
-            'summary' => $this->summary,
-            'description' => $this->description,
             'operationId' => $this->operationId,
             'parameters' => $this->getParametersAsArray(),
         ];
+
+        if (isset($this->summary)) {
+            $data['summary'] = $this->summary;
+        }
+
+        if (isset($this->description)) {
+            $data['description'] = $this->description;
+        }
+
+        if (isset($this->requestBody)) {
+            $data['requestBody'] = $this->requestBody->toArray();
+        }
+
+        return $data;
     }
 
     private function getParametersAsArray(): array
