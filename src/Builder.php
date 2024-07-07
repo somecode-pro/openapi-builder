@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Somecode\OpenApi\Entities\Components\Components;
 use Somecode\OpenApi\Entities\Info;
 use Somecode\OpenApi\Entities\Path;
+use Somecode\OpenApi\Entities\Server\Server;
 use Somecode\OpenApi\Services\JsonSerializer;
 
 class Builder
@@ -21,6 +22,8 @@ class Builder
     /** @var ArrayCollection<array<Path>> */
     private ArrayCollection $paths;
 
+    private ArrayCollection $servers;
+
     public function __construct(
         ?string $title = null,
         ?string $version = null,
@@ -28,6 +31,7 @@ class Builder
     ) {
         $this->info = new Info($title, $version, $description);
         $this->paths = new ArrayCollection();
+        $this->servers = new ArrayCollection();
         $this->initComponents();
     }
 
@@ -81,6 +85,27 @@ class Builder
         $this->paths->add($path);
 
         return $this;
+    }
+
+    public function addServer(Server $server): static
+    {
+        $this->servers->add($server);
+
+        return $this;
+    }
+
+    public function addServers(array $servers): static
+    {
+        foreach ($servers as $server) {
+            $this->addServer($server);
+        }
+
+        return $this;
+    }
+
+    public function servers(): ArrayCollection
+    {
+        return $this->servers;
     }
 
     public function toJson(): string
