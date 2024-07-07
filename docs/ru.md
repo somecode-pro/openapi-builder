@@ -472,3 +472,41 @@ $builder->addSchema($productSchema);
 - `minimum(int|float $minimum)`
 - `useInt32Format()`
 - `useInt64Format()`
+
+### Тело запроса
+
+Тело запроса описывает структуру данных, передаваемых в запросе. 
+Для добавления тела запроса используйте метод `requestBody(RequestBody $body)`.
+
+```php
+use Somecode\OpenApi\Entities\Request\RequestBody;
+use Somecode\OpenApi\Entities\Content\JsonContent;
+
+$builder->addPaths([
+    Path::create('/api/v1/products/{product}')
+        ->addMethods([
+            Patch::create()
+                ->addParameters([
+                    PathParameter::create('product')
+                        ->required(),
+                ])
+                ->requestBody(
+                    RequestBody::create()
+                        ->description('Тело запроса')
+                        ->required()
+                        ->addContent(
+                            JsonContent::create()
+                                ->schema(
+                                    ObjectSchema::create()
+                                        ->addProperties([
+                                            NumberSchema::create(name: 'price'),
+                                            NumberSchema::create(name: 'quantity'),
+                                        ])
+                                )
+                        )
+                ),
+        ]),
+]);
+```
+
+На данный момент поддерживается только JSON-формат и FormData. В будущем планируется добавить поддержку других форматов.
