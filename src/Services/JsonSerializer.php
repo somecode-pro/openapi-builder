@@ -4,6 +4,7 @@ namespace Somecode\OpenApi\Services;
 
 use Somecode\OpenApi\Builder;
 use Somecode\OpenApi\Entities\Path;
+use Somecode\OpenApi\Entities\Server\Server;
 
 class JsonSerializer
 {
@@ -15,11 +16,8 @@ class JsonSerializer
     {
         return json_encode([
             'openapi' => $this->builder->openApiVersion(),
-            'info' => [
-                'title' => $this->builder->info()->getTitle(),
-                'version' => $this->builder->info()->getVersion(),
-                'description' => $this->builder->info()->getDescription(),
-            ],
+            'info' => $this->builder->info()->toArray(),
+            'servers' => $this->servers(),
             'paths' => $this->paths(),
             'components' => $this->builder->componentsToArray(),
         ], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
@@ -35,5 +33,12 @@ class JsonSerializer
         }
 
         return $paths;
+    }
+
+    private function servers()
+    {
+        return $this->builder->servers()->map(
+            fn (Server $server) => $server->toArray()
+        )->toArray();
     }
 }
