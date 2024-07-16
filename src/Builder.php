@@ -8,7 +8,7 @@ use Somecode\OpenApi\Entities\Info;
 use Somecode\OpenApi\Entities\Path;
 use Somecode\OpenApi\Entities\Security\HasSecurity;
 use Somecode\OpenApi\Entities\Server\Server;
-use Somecode\OpenApi\Services\JsonSerializer;
+use Somecode\OpenApi\Services\BuilderSerializer;
 
 class Builder
 {
@@ -118,10 +118,44 @@ class Builder
         return $this->servers;
     }
 
+    public function toArray(): array
+    {
+        $data = [
+            'openapi' => $this->openApiVersion(),
+            'info' => $this->info()->toArray(),
+            'servers' => $this->serversToArray(),
+            'paths' => $this->pathsToArray(),
+            'components' => $this->componentsToArray(),
+        ];
+
+        if ($this->hasSecurity()) {
+            $data['security'] = $this->securityToArray();
+        }
+
+        return $data;
+    }
+
     public function toJson(): string
     {
-        $serializer = new JsonSerializer($this);
+        return (new BuilderSerializer($this))->toJson();
+    }
 
-        return $serializer->serialize();
+    private function pathsToArray(): array
+    {
+        $paths = [];
+
+        /** @var Path $path */
+        foreach ($this->paths() as $path) {
+            $paths[$path->uri()] = $path->toArray();
+        }
+
+        return $paths;
+    }
+
+    private function serversToArray()
+    {
+        return $this->servers()->map(
+            fn (Server $server) => $server->toArray()
+        )->toArray();
     }
 }

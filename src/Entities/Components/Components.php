@@ -25,11 +25,6 @@ trait Components
         $this->securitySchemes = new ArrayCollection();
     }
 
-    public function getSchemas(): ArrayCollection
-    {
-        return $this->schemas;
-    }
-
     public function addSchema(Schema $schema): static
     {
         if ($schema->isEmptyName()) {
@@ -48,11 +43,6 @@ trait Components
         }
 
         return $this;
-    }
-
-    public function getParameters(): ArrayCollection
-    {
-        return $this->parameters;
     }
 
     public function addParameter(Parameter $parameter): static

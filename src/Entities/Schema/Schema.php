@@ -59,11 +59,6 @@ abstract class Schema
         return empty($this->name);
     }
 
-    public function getDescription(): string
-    {
-        return $this->description;
-    }
-
     public function description(string $description): Schema
     {
         $this->description = $description;
@@ -71,14 +66,28 @@ abstract class Schema
         return $this;
     }
 
-    public function getExample(): mixed
-    {
-        return $this->example;
-    }
-
     public function example(mixed $example): Schema
     {
         $this->example = $example;
+
+        return $this;
+    }
+
+    public function default(mixed $default): Schema
+    {
+        $this->default = $default;
+
+        return $this;
+    }
+
+    public function isRequired(): bool
+    {
+        return $this->isRequired;
+    }
+
+    public function markAsRequired(): Schema
+    {
+        $this->isRequired = true;
 
         return $this;
     }
@@ -122,30 +131,6 @@ abstract class Schema
         }
 
         return array_merge($data, $this->specificData());
-    }
-
-    public function getDefault(): mixed
-    {
-        return $this->default;
-    }
-
-    public function default(mixed $default): Schema
-    {
-        $this->default = $default;
-
-        return $this;
-    }
-
-    public function isRequired(): bool
-    {
-        return $this->isRequired;
-    }
-
-    public function markAsRequired(): Schema
-    {
-        $this->isRequired = true;
-
-        return $this;
     }
 
     protected function setMinimum(float|int $minimum): Schema
