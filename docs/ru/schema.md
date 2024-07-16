@@ -30,18 +30,15 @@ StringSchema::create()
     ->enum(['ok', 'error']);
 ```
 
-```
-Array
-(
-    [type] => string
-    [description] => Статус ответа
-    [enum] => Array
-        (
-            [0] => ok
-            [1] => error
-        )
-
-)
+```json
+{
+    "type": "string",
+    "description": "Статус ответа",
+    "enum": [
+        "ok",
+        "error"
+    ]
+}
 ```
 
 ```php
@@ -52,13 +49,12 @@ StringSchema::create()
     ->useDateFormat();
 ```
 
-```
-Array
-(
-    [type] => string
-    [description] => Дата
-    [format] => date
-)
+```json
+{
+    "type": "string",
+    "description": "Дата",
+    "format": "date"
+}
 ```
 
 Полный список методов, поддерживаемых `StringSchema`, смотрите ниже.
@@ -85,15 +81,14 @@ NumberSchema::create()
     ->useFloatFormat();
 ```
 
-```
-Array
-(
-    [type] => number
-    [description] => Сумма
-    [format] => float
-    [minimum] => 1
-    [maximum] => 100
-)
+```json
+{
+    "type": "number",
+    "description": "Сумма",
+    "format": "float",
+    "minimum": 1,
+    "maximum": 100
+}
 ```
 
 Полный список методов, поддерживаемых `NumberSchema`, смотрите ниже.
@@ -115,14 +110,13 @@ IntegerSchema::create()
     ->useInt64Format();
 ```
 
-```
-Array
-(
-    [type] => integer
-    [description] => Идентификатор
-    [format] => int64
-    [minimum] => 1
-)
+```json
+{
+    "type": "integer",
+    "description": "Идентификатор",
+    "format": "int64",
+    "minimum": 1
+}
 ```
 
 Полный список методов, поддерживаемых `IntegerSchema`, смотрите ниже.

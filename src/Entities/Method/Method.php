@@ -65,26 +65,6 @@ abstract class Method
         return $this;
     }
 
-    public function getTags(): array
-    {
-        return $this->tags;
-    }
-
-    public function getSummary(): ?string
-    {
-        return $this->summary;
-    }
-
-    public function getDescription(): ?string
-    {
-        return $this->description;
-    }
-
-    public function getOperationId(): string
-    {
-        return $this->operationId;
-    }
-
     public function addParameter(Parameter $parameter): Method
     {
         $this->parameters->add($parameter);
@@ -115,16 +95,6 @@ abstract class Method
         }
 
         return $this;
-    }
-
-    public function getParameters(): ArrayCollection
-    {
-        return $this->parameters;
-    }
-
-    public function getParameterRefs(): ArrayCollection
-    {
-        return $this->parameterRefs;
     }
 
     public function requestBody(RequestBody $requestBody): Method

@@ -17,7 +17,29 @@ $builder->addServer(
 );
 ```
 
-Добавление сразу нескольких серверов можно сделать с помощью метода `addServers()`, который принимает массив объектов `Server`:
+```json
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Ozon",
+        "version": "1.0.0",
+        "description": "Ozon API documentation"
+    },
+    "servers": [
+        {
+            "url": "https://api.ozon.ru",
+            "description": "Production server"
+        }
+    ],
+    "paths": [],
+    "components": {
+        "schemas": [],
+        "parameters": []
+    }
+}
+```
+
+Добавление сразу нескольких серверов можно сделать с помощью метода `addServers()`, который принимает массив объектов класса `Server`:
 
 ```php
 use Somecode\OpenApi\Entities\Server\Server;
@@ -30,6 +52,32 @@ $builder->addServers([
         ->url('https://api.ozon-stage.ru')
         ->description('Stage server')
 ]);
+```
+
+```json
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Ozon",
+        "version": "1.0.0",
+        "description": "Ozon API documentation"
+    },
+    "servers": [
+        {
+            "url": "https://api.ozon.ru",
+            "description": "Production server"
+        },
+        {
+            "url": "https://api.ozon-stage.ru",
+            "description": "Stage server"
+        }
+    ],
+    "paths": [],
+    "components": {
+        "schemas": [],
+        "parameters": []
+    }
+}
 ```
 
 ## Параметры сервера
@@ -54,6 +102,39 @@ $builder->addServer(
                 ->enum(['ru', 'kz', 'by'])
         )
 );
+```
+
+```json
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Ozon",
+        "version": "1.0.0",
+        "description": "Ozon API documentation"
+    },
+    "servers": [
+        {
+            "url": "https://api.ozon.{region}",
+            "description": "Production server",
+            "variables": {
+                "region": {
+                    "description": "Region code",
+                    "default": "ru",
+                    "enum": [
+                        "ru",
+                        "kz",
+                        "by"
+                    ]
+                }
+            }
+        }
+    ],
+    "paths": [],
+    "components": {
+        "schemas": [],
+        "parameters": []
+    }
+}
 ```
 
 Обратите внимание, что переменные могут быть использованы в путях, указанных в спецификации,
