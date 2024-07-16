@@ -1,6 +1,5 @@
 {
   "name": "somecode/openapi-builder",
-  "version": "1.0.3",
   "description": "A package for convenient building and generation of Open API documentation",
   "type": "library",
   "license": "MIT",
