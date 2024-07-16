@@ -364,3 +364,117 @@ ArraySchema::create()
 Любую именованную схему вы можете добавить в список компонентов спецификации, которые в дальнейшем можно будет переиспользовать.
 
 ```php
+
+use Somecode\OpenApi\Builder;
+use Somecode\OpenApi\Entities\Schema\ArraySchema;
+use Somecode\OpenApi\Entities\Schema\IntegerSchema;
+use Somecode\OpenApi\Entities\Schema\NumberSchema;
+use Somecode\OpenApi\Entities\Schema\ObjectSchema;
+use Somecode\OpenApi\Entities\Schema\StringSchema;
+
+$builder = new Builder(
+    title: 'Ozon',
+    version: '1.0.0',
+    description: 'Ozon API documentation'
+);
+
+$categorySchema = ObjectSchema::create(name: 'Category')
+    ->description('Категория')
+    ->addProperties([
+        IntegerSchema::create(name: 'id'),
+        StringSchema::create(name: 'name')->markAsRequired(),
+    ]);
+
+$productSchema = ObjectSchema::create(name: 'Product')
+    ->description('Продукт')
+    ->addProperties([
+        IntegerSchema::create(name: 'id'),
+        StringSchema::create(name: 'name')->markAsRequired(),
+        NumberSchema::create(name: 'price')->markAsRequired(),
+        IntegerSchema::create(name: 'quantity'),
+        StringSchema::create(name: 'createdAt')->useDateTimeFormat(),
+        ObjectSchema::create(name: 'category')
+            ->ref('Category'),
+    ]);
+
+$productsListSchema = ArraySchema::create(name: 'ProductsList')
+    ->description('Список продуктов')
+    ->itemsSchema(schema: 'Product');
+
+$builder->addSchemas([
+    $categorySchema,
+    $productSchema,
+    $productsListSchema,
+]);
+
+echo $builder->toJson();
+```
+
+```json
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Ozon",
+        "version": "1.0.0",
+        "description": "Ozon API documentation"
+    },
+    "servers": [],
+    "paths": [],
+    "components": {
+        "schemas": {
+            "Category": {
+                "type": "object",
+                "description": "Категория",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "name": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "name"
+                ]
+            },
+            "Product": {
+                "type": "object",
+                "description": "Продукт",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "price": {
+                        "type": "number"
+                    },
+                    "quantity": {
+                        "type": "integer"
+                    },
+                    "createdAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "category": {
+                        "$ref": "#/components/schemas/Category"
+                    }
+                },
+                "required": [
+                    "name",
+                    "price"
+                ]
+            },
+            "ProductsList": {
+                "type": "array",
+                "description": "Products",
+                "items": {
+                    "$ref": "#/components/schemas/Product"
+                }
+            }
+        },
+        "parameters": []
+    }
+}
+```
