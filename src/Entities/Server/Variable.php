@@ -32,11 +32,6 @@ class Variable
         return empty($this->name);
     }
 
-    public function getName(): string
-    {
-        return $this->name;
-    }
-
     public function name(string $name): Variable
     {
         $this->name = $name;

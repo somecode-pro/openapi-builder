@@ -43,11 +43,6 @@ class StringSchema extends Schema
         return $data;
     }
 
-    public function getMinLength(): int
-    {
-        return $this->minLength;
-    }
-
     public function minLength(int $minLength): StringSchema
     {
         $this->minLength = $minLength;
@@ -55,21 +50,11 @@ class StringSchema extends Schema
         return $this;
     }
 
-    public function getMaxLength(): int
-    {
-        return $this->maxLength;
-    }
-
     public function maxLength(int $maxLength): StringSchema
     {
         $this->maxLength = $maxLength;
 
         return $this;
-    }
-
-    public function getPattern(): string
-    {
-        return $this->pattern;
     }
 
     public function pattern(string $pattern): StringSchema

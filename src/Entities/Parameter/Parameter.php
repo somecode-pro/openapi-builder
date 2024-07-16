@@ -65,21 +65,11 @@ abstract class Parameter
         return empty($this->name);
     }
 
-    public function getDescription(): ?string
-    {
-        return $this->description;
-    }
-
     public function description(?string $description): Parameter
     {
         $this->description = $description;
 
         return $this;
-    }
-
-    public function isRequired(): bool
-    {
-        return $this->required;
     }
 
     public function required(bool $required = true): Parameter
@@ -89,21 +79,11 @@ abstract class Parameter
         return $this;
     }
 
-    public function isDeprecated(): bool
-    {
-        return $this->deprecated;
-    }
-
     public function deprecated(bool $deprecated = true): Parameter
     {
         $this->deprecated = $deprecated;
 
         return $this;
-    }
-
-    public function getSchema(): Schema
-    {
-        return $this->schema;
     }
 
     public function schema(Schema $schema): static
@@ -113,21 +93,11 @@ abstract class Parameter
         return $this;
     }
 
-    public function getExample(): mixed
-    {
-        return $this->example;
-    }
-
     public function example(mixed $example): Parameter
     {
         $this->example = $example;
 
         return $this;
-    }
-
-    public function getExamples(): ArrayCollection
-    {
-        return $this->examples;
     }
 
     public function addExample(ParameterExample $example): Parameter
@@ -148,16 +118,6 @@ abstract class Parameter
         }
 
         return $this;
-    }
-
-    public function getStyle(): string
-    {
-        return $this->style;
-    }
-
-    public function isExplode(): bool
-    {
-        return $this->explode;
     }
 
     public function explode(bool $explode = true): Parameter

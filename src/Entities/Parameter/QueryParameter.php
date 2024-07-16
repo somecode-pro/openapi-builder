@@ -33,21 +33,11 @@ class QueryParameter extends Parameter
         return 'form';
     }
 
-    public function isAllowEmptyValue(): bool
-    {
-        return $this->allowEmptyValue;
-    }
-
     public function allowEmptyValue(bool $allowEmptyValue = true): QueryParameter
     {
         $this->allowEmptyValue = $allowEmptyValue;
 
         return $this;
-    }
-
-    public function isAllowReserved(): bool
-    {
-        return $this->allowReserved;
     }
 
     public function allowReserved(bool $allowReserved = true): QueryParameter

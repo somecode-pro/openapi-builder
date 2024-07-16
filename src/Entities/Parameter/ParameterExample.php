@@ -27,21 +27,11 @@ class ParameterExample
         return $this;
     }
 
-    public function getSummary(): ?string
-    {
-        return $this->summary;
-    }
-
     public function summary(?string $summary): ParameterExample
     {
         $this->summary = $summary;
 
         return $this;
-    }
-
-    public function getValue(): mixed
-    {
-        return $this->value;
     }
 
     public function value(mixed $value): ParameterExample

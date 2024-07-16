@@ -75,25 +75,6 @@ class Response
         return $this;
     }
 
-    public function toArray(): array
-    {
-        $data = [];
-
-        if (isset($this->description)) {
-            $data['description'] = $this->description;
-        }
-
-        if (! $this->content->isEmpty()) {
-            $data['content'] = $this->getContentsArray();
-        }
-
-        if (! $this->headers->isEmpty()) {
-            $data['headers'] = $this->getHeadersArray();
-        }
-
-        return $data;
-    }
-
     public static function ok(): static
     {
         return new static(200);
@@ -122,6 +103,25 @@ class Response
     public static function unauthorized(): static
     {
         return new static(401);
+    }
+
+    public function toArray(): array
+    {
+        $data = [];
+
+        if (isset($this->description)) {
+            $data['description'] = $this->description;
+        }
+
+        if (! $this->content->isEmpty()) {
+            $data['content'] = $this->getContentsArray();
+        }
+
+        if (! $this->headers->isEmpty()) {
+            $data['headers'] = $this->getHeadersArray();
+        }
+
+        return $data;
     }
 
     private function getContentsArray(): array
