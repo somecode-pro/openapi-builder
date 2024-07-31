@@ -87,6 +87,7 @@ class Server
     {
         $variables = [];
 
+        /** @var Variable $variable */
         foreach ($this->variables as $variable) {
             $variables[$variable->getName()] = $variable->toArray();
         }

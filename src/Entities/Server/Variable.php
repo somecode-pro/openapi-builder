@@ -39,6 +39,11 @@ class Variable
         return $this;
     }
 
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
     public function default(mixed $default): Variable
     {
         $this->default = $default;
